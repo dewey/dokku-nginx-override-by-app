@@ -19,5 +19,5 @@ func main() {
 		fmt.Println("err", err)
 		return
 	}
-	fmt.Println("plugin", appPluginConfigPath)
+	fmt.Println(appPluginConfigPath)
 }

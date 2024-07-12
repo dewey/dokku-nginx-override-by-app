@@ -12,7 +12,7 @@ func main() {
 
 	cmd := flag.Arg(0)
 	switch cmd {
-	case "add":
+	case "nginx-override-by-hostname:add":
 		fmt.Println("adding directories in the dokku folder")
 	default:
 		dokkuNotImplementExitCode, err := strconv.Atoi(os.Getenv("DOKKU_NOT_IMPLEMENTED_EXIT"))
