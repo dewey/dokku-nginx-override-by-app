@@ -15,7 +15,7 @@ func main() {
 		if os.IsNotExist(err) {
 			return
 		}
-		fmt.Println(appPluginConfigPath)
 		return
 	}
+	fmt.Println(appPluginConfigPath)
 }
