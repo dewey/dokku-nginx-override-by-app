@@ -13,9 +13,11 @@ func main() {
 	appPluginConfigPath := fmt.Sprintf("/var/lib/dokku/data/nginx-override-by-hostname/%s/nginx.conf.sigil", args[1])
 	if _, err := os.Stat(appPluginConfigPath); err != nil {
 		if os.IsNotExist(err) {
+			fmt.Println("not exists")
 			return
 		}
+		fmt.Println("err", err)
 		return
 	}
-	fmt.Println(appPluginConfigPath)
+	fmt.Println("plugin", appPluginConfigPath)
 }
