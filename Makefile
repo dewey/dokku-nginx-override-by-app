@@ -11,15 +11,15 @@ build-in-docker:
 		bash -c "make build" || exit $$?
 
 build: commands triggers
-triggers: pre-deploy
+triggers: nginx-app-template-source
 commands: **/**/commands.go
 	go build -a -o commands ./src/commands/commands.go
 
-pre-deploy: **/**/pre-deploy.go
-	go build -a -o pre-deploy ./src/triggers/pre-deploy.go
+nginx-app-template-source: **/**/nginx-app-template-source.go
+	go build -a -o nginx-app-template-source ./src/triggers/nginx-app-template-source.go
 
 clean:
-	rm -f commands pre-deploy
+	rm -f commands nginx-app-template-source
 
 src-clean:
 	rm -rf .editorconfig .gitignore src LICENSE Makefile README.md *.go
