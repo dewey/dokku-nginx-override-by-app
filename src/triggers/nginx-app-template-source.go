@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
+	argsWithProg := os.Args
+	fmt.Println("argsWithProg: ", argsWithProg)
 	fmt.Println("triggered smoke-test-plugin from: nginx-app-template-source")
 }
