@@ -1,5 +1,5 @@
 GO_REPO_ROOT := /go/src/github.com/dokku/smoke-test-plugin
-BUILD_IMAGE := golang:1.7.1
+BUILD_IMAGE := golang:1.22.4
 
 .PHONY: build-in-docker build clean src-clean
 
