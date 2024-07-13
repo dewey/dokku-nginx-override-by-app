@@ -32,7 +32,6 @@ func main() {
 	cmd := flag.Arg(0)
 	switch cmd {
 	case "nginx-override-by-app:add":
-		fmt.Println(flag.Args())
 		appPluginBasePath := "/var/lib/dokku/data/nginx-override-by-app"
 		if len(flag.Args()) != 3 {
 			usage()
@@ -87,7 +86,7 @@ func main() {
 			return
 		}
 
-		fmt.Println("created app directory in plugin directory and moved file")
+		fmt.Printf("success! the nginx.conf.sigil was copied to: %s, use ps:rebuild to apply.\n", appPluginAppBasePath)
 	case "smoke-test-plugin:help":
 		usage()
 	case "help":
