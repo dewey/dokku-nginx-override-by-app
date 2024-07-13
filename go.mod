@@ -1,4 +1,4 @@
-module github.com/dewey/dokku-nginx-override-by-hostname
+module github.com/dewey/dokku-nginx-override-by-app
 
 go 1.22.4
 

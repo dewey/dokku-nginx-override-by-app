@@ -21,7 +21,7 @@ Runs commands that interact with the app's repo
 Additional commands:`
 
 	helpContent = `
-    nginx-override-by-hostname:add <app> <path/to/custom/nginx.conf.sigil>, copies custom nginx configuration file to the app's nginx configuration directory
+    nginx-override-by-app:add <app> <path/to/custom/nginx.conf.sigil>, copies custom nginx configuration file to the app's nginx configuration directory
 `
 )
 
@@ -31,9 +31,9 @@ func main() {
 
 	cmd := flag.Arg(0)
 	switch cmd {
-	case "nginx-override-by-hostname:add":
+	case "nginx-override-by-app:add":
 		fmt.Println(flag.Args())
-		appPluginBasePath := "/var/lib/dokku/data/nginx-override-by-hostname"
+		appPluginBasePath := "/var/lib/dokku/data/nginx-override-by-app"
 		if len(flag.Args()) != 3 {
 			usage()
 			return

@@ -1,7 +1,7 @@
 Just experimenting!
 
 ```
-dokku plugin:install https://github.com/dewey/dokku-nginx-override-by-hostname.git
+dokku plugin:install https://github.com/dewey/dokku-nginx-override-by-app.git
 ```
 
 1) Copy file into dokku directory (so we have permissions)
@@ -10,5 +10,5 @@ dokku plugin:install https://github.com/dewey/dokku-nginx-override-by-hostname.g
 
 ```
 chown dokku:dokku /home/dokku/nginx.conf.sigil
-dokku nginx-override-by-hostname:add beckkla.us /home/dokku/nginx.conf.sigil
+dokku nginx-override-by-app:add beckkla.us /home/dokku/nginx.conf.sigil
 ```

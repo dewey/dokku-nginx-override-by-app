@@ -1,4 +1,4 @@
-GO_REPO_ROOT := /go/src/github.com/dokku/smoke-test-plugin
+GO_REPO_ROOT := /go/src/github.com/dokku/nginx-override-by-app
 BUILD_IMAGE := golang:1.22.4
 
 .PHONY: build-in-docker build clean src-clean

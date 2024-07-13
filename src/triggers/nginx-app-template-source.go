@@ -11,7 +11,7 @@ func main() {
 		fmt.Println("Usage: nginx-app-template-source <arg1> <arg2>")
 		return
 	}
-	appPluginConfigPath := fmt.Sprintf("/var/lib/dokku/data/nginx-override-by-hostname/%s/nginx.conf.sigil", args[1])
+	appPluginConfigPath := fmt.Sprintf("/var/lib/dokku/data/nginx-override-by-app/%s/nginx.conf.sigil", args[1])
 	if _, err := os.Stat(appPluginConfigPath); err != nil {
 		if os.IsNotExist(err) {
 			return

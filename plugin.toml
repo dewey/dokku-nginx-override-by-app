@@ -1,5 +1,4 @@
 [plugin]
-description = "dokku nginx override by hostname plugin"
-version = "0.9.1"
+description = "dokku nginx override by app plugin"
+version = "0.0.1"
 [plugin.config]
-testing = "true"
