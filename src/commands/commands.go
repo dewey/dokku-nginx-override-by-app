@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/user"
 	"path"
 	"strconv"
 	"strings"
@@ -43,16 +44,49 @@ func main() {
 			log.Println("error creating plugin data directory", err)
 			return
 		}
+		u, err := user.Lookup("dokku")
+		if err != nil {
+			fmt.Println("error getting user info for dokku user")
+			return
+		}
+		uid, err := strconv.Atoi(u.Uid)
+		if err != nil {
+			fmt.Println("error converting uid to int")
+			return
+		}
+		gid, err := strconv.Atoi(u.Gid)
+		if err != nil {
+			fmt.Println("error converting gid to int")
+			return
+		}
+		if err := os.Chown(appPluginAppBasePath, uid, gid); err != nil {
+			fmt.Println("error changing file owner of plugin app base path", err)
+			return
+		}
 		configPath := flag.Arg(2)
 		if _, err := os.Stat(configPath); err != nil {
 			if os.IsNotExist(err) {
 				return
 			}
 		}
-		if err := os.Rename(configPath, path.Join(appPluginAppBasePath, "nginx.conf.sigil")); err != nil {
-			fmt.Println("error moving nginx.conf.sigil", err)
+		input, err := os.ReadFile(configPath)
+		if err != nil {
+			fmt.Println(err)
 			return
 		}
+
+		destinationFile := path.Join(appPluginAppBasePath, "nginx.conf.sigil")
+		err = os.WriteFile(destinationFile, input, 0644)
+		if err != nil {
+			fmt.Printf("error creating %s: %v\n", destinationFile, err)
+			return
+		}
+
+		if err := os.Chown(destinationFile, uid, gid); err != nil {
+			fmt.Println("error changing file owner", err)
+			return
+		}
+
 		fmt.Println("created app directory in plugin directory and moved file")
 	case "smoke-test-plugin:help":
 		usage()
