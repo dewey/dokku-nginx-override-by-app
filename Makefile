@@ -10,19 +10,16 @@ build-in-docker:
 		$(BUILD_IMAGE) \
 		bash -c "make build" || exit $$?
 
-build: commands subcommands triggers
+build: commands triggers
 triggers: nginx-app-template-source
 commands: **/**/commands.go
 	go build -a -o commands ./src/commands/commands.go
-
-subcommands: **/**/subcommands.go
-	go build -a -o subcommands ./src/subcommands/subcommands.go
 
 nginx-app-template-source: **/**/nginx-app-template-source.go
 	go build -a -o nginx-app-template-source ./src/triggers/nginx-app-template-source.go
 
 clean:
-	rm -f commands subcommands nginx-app-template-source
+	rm -f commands nginx-app-template-source
 
 src-clean:
 	rm -rf .editorconfig .gitignore src LICENSE Makefile README.md *.go

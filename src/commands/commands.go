@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
+	"path"
 	"strconv"
 	"strings"
 
@@ -18,7 +20,7 @@ Runs commands that interact with the app's repo
 Additional commands:`
 
 	helpContent = `
-    smoke-test-plugin:test, prints test message
+    nginx-override-by-hostname:add <app> <path/to/custom/nginx.conf.sigil>, copies custom nginx configuration file to the app's nginx configuration directory
 `
 )
 
@@ -28,14 +30,34 @@ func main() {
 
 	cmd := flag.Arg(0)
 	switch cmd {
+	case "nginx-override-by-hostname:add":
+		fmt.Println(flag.Args())
+		appPluginBasePath := "/var/lib/dokku/data/nginx-override-by-hostname"
+		if len(flag.Args()) != 3 {
+			usage()
+			return
+		}
+		appPluginAppBasePath := path.Join(appPluginBasePath, flag.Arg(1))
+		err := os.MkdirAll(appPluginAppBasePath, os.ModePerm)
+		if err != nil {
+			log.Println("error creating plugin data directory", err)
+			return
+		}
+		configPath := flag.Arg(2)
+		if _, err := os.Stat(configPath); err != nil {
+			if os.IsNotExist(err) {
+				return
+			}
+		}
+		if err := os.Rename(configPath, path.Join(appPluginAppBasePath, "nginx.conf.sigil")); err != nil {
+			fmt.Println("error moving nginx.conf.sigil", err)
+			return
+		}
+		fmt.Println("created app directory in plugin directory and moved file")
 	case "smoke-test-plugin:help":
 		usage()
 	case "help":
 		fmt.Print(helpContent)
-	case "smoke-test-plugin:test":
-		fmt.Println("triggered smoke-test-plugin from: commands")
-    case "smoke-test-plugin:args":
-        fmt.Printf("triggered smoke-test-plugin:args with args: %v\n", strings.Join(flag.Args(), ", "))
 	default:
 		dokkuNotImplementExitCode, err := strconv.Atoi(os.Getenv("DOKKU_NOT_IMPLEMENTED_EXIT"))
 		if err != nil {
