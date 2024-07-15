@@ -1,4 +1,4 @@
-GO_REPO_ROOT := /go/src/github.com/dokku/nginx-override-by-app
+GO_REPO_ROOT := /go/src/github.com/dewey/dokku-nginx-override-by-app
 BUILD_IMAGE := golang:1.22.4
 
 .PHONY: build-in-docker build clean src-clean
