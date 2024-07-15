@@ -20,3 +20,5 @@ dokku plugin:install https://github.com/dewey/dokku-nginx-override-by-app.git
 2) Use the app name and the path to the directory where you want to copy the config from to copy the config to the right directory: `dokku nginx-override-by-app:add <app> /home/dokku/nginx.conf.sigil`
 3) Run `dokku ps:rebuild <app>` to rebuild your site with the new config
 4) Done. Your app should now use your custom `nginx.conf.sigil` file.
+
+If you ever want to tweak a config just navigate to `/var/lib/dokku/data/nginx-override-by-app` and you'll see all your configs there, in directories named after your apps.
